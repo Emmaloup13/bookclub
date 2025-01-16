@@ -1,6 +1,9 @@
 <template>
 <div class="container mt-5">
-    <div class="row">
+    <div v-if="isLoading" class="loading">
+      <p>Assemblage de neurones en cours...</p>
+    </div>
+    <div v-else class="row">
       <div class="col-md-4">
         <h2 class="text-center">Présentation du Club</h2>
         <p>Bienvenue au club de lecture. Nous nous réunissons chaque semaine pour discuter de nos lectures préférées.</p>
@@ -38,7 +41,8 @@ export default {
             books: [
                 
             ],
-            currentBook: null
+            currentBook: null,
+            isLoading: true
         }
     },
     computed: {
@@ -58,6 +62,8 @@ export default {
                 }
             } catch (error) {
                 console.error('Erreur lors de la récupération des livres:', error);
+            } finally {
+                this.isLoading = false;
             }
         },
         changeBook() {
