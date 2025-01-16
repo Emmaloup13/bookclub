@@ -7,4 +7,4 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import 'bootswatch/dist/journal/bootstrap.min.css'
 
 
-createApp(App).mount('#app')
+createApp(App).use(router).mount('#app')

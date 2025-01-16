@@ -16,7 +16,6 @@ export default {
     name: 'HomeView',
     components: {
         Home,
-        Map
     }
 }
 </script>

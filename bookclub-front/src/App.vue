@@ -4,11 +4,11 @@ import NavBar from './components/NavBar.vue';
 
 <template>
   <header>
-
+    <NavBar />
   </header>
 
   <main>
-    <NavBar />
+     <RouterView />
   </main>
 </template>
 
