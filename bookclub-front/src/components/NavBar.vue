@@ -1,9 +1,9 @@
 <template>
-    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="../assets/logo_CLAI_2.png" alt="Logo" class="navbar-logo">
-                Le cercle de lecture des amies imaginaires</a>
+                </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
                 aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -73,6 +73,11 @@ export default {
 .navbar-logo {
   width: 40px; /* Ajustez cette valeur selon vos besoins */
   height: 40px; /* Ajustez cette valeur selon vos besoins */
-  margin-right: 10px; /* Espace entre l'image et le texte */
+  margin-right: 5px; /* Espace entre l'image et le texte */
+}
+
+.navbar {
+    /* background-color: #7B8360; */
+    background-color: #A54B50;
 }
 </style>

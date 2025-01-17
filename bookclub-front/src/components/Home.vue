@@ -4,15 +4,15 @@
       <p>Assemblage de neurones en cours...</p>
     </div>
     <div v-else class="row">
-      <div class="col-md-4 colonne_gauche">
+      <div class="col-12 col-md-4 colonne_gauche">
         <h2 class="text-center">Présentation du Club</h2>
-        <p id="presentation_text">Bienvenue sur le site du club de lecture "Le Cercle de Lecture des Amies Imaginaires". Il est composé de membres fabuleuses, dont l'écrivaine très connue Nina Fleur (Delacour) et Hei Heimma, une lectrice qui n'a pas froid aux yeux. Vous pourrez trouver sur cette application une liste exhaustive de toutes leurs lectures, de la fantasy (fantasie aussi) aux enquêtes. </p>
+        <p id="presentation_text">Bienvenue sur le site du club de lecture "Le Cercle de Lecture des Amies Imaginaires". Il est composé de membres fabuleuses, dont la noix de coco-autrice très connue Nina Fleur (Delacour) et Hei Heimma, une lectrice qui n'a pas froid aux yeux. Vous pourrez trouver sur cette application une liste exhaustive de toutes leurs lectures, de la fantasy (fantasie aussi) aux enquêtes. </p>
         
       </div>
-      <div class="col-md-4 ">
+      <div class="col-12 col-md-4 ">
         <CurrentBook :currentBook="currentBook" />
       </div>
-      <div class="col-md-4 text-center colonne_droite">
+      <div class="col-12 col-md-4 text-center colonne_droite">
         <h2 >Résumé et Caractéristiques</h2>
         <label for="bookSelector"><strong>Changer de livre :</strong></label>
         <select id="bookSelector" v-model="selectedBook" @change="changeBook">
@@ -117,5 +117,12 @@ export default {
 #presentation_text {
   text-align: justify;
   font-size: large;
+}
+
+@media (max-width: 768px) {
+  .row {
+    overflow-y: auto;
+    max-height: 100vh;
+  }
 }
 </style>
