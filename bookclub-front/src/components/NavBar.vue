@@ -1,9 +1,10 @@
 <template>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="../assets/logo_CLAI_2.png" alt="Logo" class="navbar-logo">
-                </a>
+            <img src="../assets/logo_CLAI_2.png" alt="Logo" class="navbar-logo">
+            <a class="navbar-brand d-block d-lg-none" href="#">
+                Le Cercle des Amies Imaginaires
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
                 aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -79,5 +80,9 @@ export default {
 .navbar {
     /* background-color: #7B8360; */
     background-color: #A54B50;
+}
+
+@media (max-width: 768px) {
+ 
 }
 </style>

@@ -21,7 +21,7 @@
         <p><strong>Auteur(e):</strong> {{ currentBook ? currentBook.author : '' }}</p>
         <p><strong>Genre :</strong> {{ currentBook ? currentBook.genre['title'] : '' }}</p>
         <p><strong>Nombre de pages :</strong> {{ currentBook ? currentBook.pages : ''}}</p>
-        <p><strong>Résumé :</strong> {{ currentBook ? currentBook.summary : '' }}</p>
+        <p id="resume_text"><strong>Résumé :</strong> {{ currentBook ? currentBook.summary : '' }}</p>
         
       </div>
     </div>
@@ -86,7 +86,7 @@ export default {
 <style scoped>
 
 .container {
-  background-color: rgba(255, 255, 255, 0.70);
+  background-color: rgba(255, 255, 255, 0.80);
   border-radius: 10px;
 }
 
@@ -119,10 +119,24 @@ export default {
   font-size: large;
 }
 
+#resume_text {
+    width: 100%;
+    overflow-wrap: break-word;
+  }
+
 @media (max-width: 768px) {
   .row {
     overflow-y: auto;
-    max-height: 100vh;
+    max-height: 70vh;
+  }
+  #resume_text {
+    width: 100%;
+    overflow-wrap: break-word;
+  }
+  #presentation_text {
+      text-align: justify;
+      font-size: large;
+      overflow-wrap: break-word;
   }
 }
 </style>
