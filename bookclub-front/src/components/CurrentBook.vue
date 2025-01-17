@@ -22,13 +22,17 @@ export default {
 
 <style scoped>
 .fixed-size-img {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
   width: 150px; /* Ajustez cette valeur selon vos besoins */
   height: 200px; /* Ajustez cette valeur selon vos besoins */
   object-fit: cover; /* Pour s'assurer que l'image s'adapte bien à la taille définie */
 }
-
+.card {
+    background-color: transparent;
+    border: none    ;
+}
 .card-body{
     text-align: center;
+    
 }
 </style>

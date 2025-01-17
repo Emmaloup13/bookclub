@@ -1,9 +1,9 @@
 <template>
-    <div id="home_view">
-        <div id="home_container">
-            <Home />
-        </div>
-    </div>
+   
+       <div class="home">
+        <Home />
+       </div>
+    
 </template>
 
 
@@ -22,6 +22,14 @@ export default {
 
 
 
-<style>
+<style scoped>
 
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    /* background-color: rgba(255, 255, 255, 0.30); */
+}
 </style>

@@ -4,23 +4,25 @@
       <p>Assemblage de neurones en cours...</p>
     </div>
     <div v-else class="row">
-      <div class="col-md-4">
+      <div class="col-md-4 colonne_gauche">
         <h2 class="text-center">Présentation du Club</h2>
-        <p>Bienvenue au club de lecture. Nous nous réunissons chaque semaine pour discuter de nos lectures préférées.</p>
+        <p id="presentation_text">Bienvenue sur le site du club de lecture "Le Cercle de Lecture des Amies Imaginaires". Il est composé de membres fabuleuses, dont l'écrivaine très connue Nina Fleur (Delacour) et Hei Heimma, une lectrice qui n'a pas froid aux yeux. Vous pourrez trouver sur cette application une liste exhaustive de toutes leurs lectures, de la fantasy (fantasie aussi) aux enquêtes. </p>
+        
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4 ">
         <CurrentBook :currentBook="currentBook" />
       </div>
-      <div class="col-md-4 text-center">
+      <div class="col-md-4 text-center colonne_droite">
         <h2 >Résumé et Caractéristiques</h2>
+        <label for="bookSelector"><strong>Changer de livre :</strong></label>
+        <select id="bookSelector" v-model="selectedBook" @change="changeBook">
+          <option v-for="book in books" :key="book._id" :value="book._id">{{ book.title }}</option>
+        </select>
         <p><strong>Auteur(e):</strong> {{ currentBook ? currentBook.author : '' }}</p>
         <p><strong>Genre :</strong> {{ currentBook ? currentBook.genre['title'] : '' }}</p>
         <p><strong>Nombre de pages :</strong> {{ currentBook ? currentBook.pages : ''}}</p>
         <p><strong>Résumé :</strong> {{ currentBook ? currentBook.summary : '' }}</p>
-        <label for="bookSelector">Changer de livre : </label>
-        <select id="bookSelector" v-model="selectedBook" @change="changeBook">
-          <option v-for="book in books" :key="book._id" :value="book._id">{{ book.title }}</option>
-        </select>
+        
       </div>
     </div>
   </div>
@@ -83,8 +85,37 @@ export default {
 
 <style scoped>
 
+.container {
+  background-color: rgba(255, 255, 255, 0.70);
+  border-radius: 10px;
+}
+
+.loading {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 1.5em;
+  margin-top: 50px;
+}
+
 #bookSelector {
   margin: 10px;
 }
 
+.colonne_gauche {
+  padding-right: 5%;
+}
+
+.colonne_droite {
+  padding-left: 5%;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+#presentation_text {
+  text-align: justify;
+  font-size: large;
+}
 </style>
