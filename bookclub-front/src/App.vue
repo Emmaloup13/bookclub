@@ -13,14 +13,9 @@ import NavBar from './components/NavBar.vue';
 
 <style >
 
-.router-view {
+ .router-view {
   width: 100%;
   height: 115%;
-  background: url("./assets/banniere_CLAI.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #A3454C;
-  background-position: center center;
-  overflow-y: hidden;
 }
+
 </style>

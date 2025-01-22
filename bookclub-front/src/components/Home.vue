@@ -125,10 +125,10 @@ export default {
   }
 
 @media (max-width: 768px) {
-  .row {
+  /* .row {
     overflow-y: auto;
-    max-height: 70vh;
-  }
+    max-height: 50vh;
+  } */
   #resume_text {
     width: 100%;
     overflow-wrap: break-word;

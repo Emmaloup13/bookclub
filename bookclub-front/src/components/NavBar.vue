@@ -12,9 +12,9 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Accueil
+                        <router-link class="nav-link" to="/">Accueil
 
-                        </a>
+                        </router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Livres à lire</a>
@@ -30,8 +30,8 @@
                             aria-expanded="false">Paramètres</a>
                         <transition id="dropdown">
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Ajouter/modifier un lecteur</a>
-                                <a class="dropdown-item" href="#">Ajouter/modifier un livre</a>
+                                <router-link class="dropdown-item" to="/users">Gérer les lecteurs</router-link>
+                                <a class="dropdown-item" href="#">Ajouter un livre</a>
                                 <a class="dropdown-item" href="#">Ajouter un genre littéraire</a>
                             </div>
                         </transition>
@@ -40,7 +40,7 @@
                 <form class="d-flex">
                     <input class="form-control me-sm-2" type="search" placeholder="Rechecher un livre"
                         aria-label="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0 w-50" type="submit">Accio livre</button>
+                    <button class="btn btn-info my-2 my-sm-0 w-50" type="submit">Accio livre</button>
                 </form>
             </div>
         </div>
