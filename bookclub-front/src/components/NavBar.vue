@@ -38,7 +38,7 @@
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <input class="form-control me-sm-2" type="search" placeholder="Rechecher un livre"
+                    <input class="form-control me-sm-2" type="search" placeholder="Rechercher un livre"
                         aria-label="Search">
                     <button class="btn btn-info my-2 my-sm-0 w-50" type="submit">Accio livre</button>
                 </form>
