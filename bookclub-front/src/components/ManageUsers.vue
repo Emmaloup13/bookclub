@@ -7,7 +7,7 @@
                     <tr>
                         <th>Photo de profil</th>
                         <th>Nom</th>
-                        <th>Email</th>
+                        <th>Genres</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -15,7 +15,9 @@
                     <tr v-for="user in paginatedUsers" :key="user._id">
                         <td><img :src="user.imageUrl" alt="Photo de profil" class="profile-image"></td>
                         <td>{{ user.username }}</td>
-                        <td>{{ user.email }}</td>
+                        <td>
+                            <span class="badge bg-primary me-2" v-for="genre in user.genres" :key="genre">{{genre.title}}</span>
+                        </td>
                         <td>
                             <router-link :to="{ name: 'EditUser', params: { id: user._id }}" class="me-2">Modifier</router-link>
                             <a href="#"  @click.prevent="confirmDelete(user._id)">Supprimer</a>
