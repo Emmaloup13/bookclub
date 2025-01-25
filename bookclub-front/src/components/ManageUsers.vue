@@ -2,7 +2,7 @@
     <div>
         <h3 class="text-center mt-4 mb-4">Gérer les lecteurs</h3>
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered rounded-table">
                 <thead>
                     <tr>
                         <th>Photo de profil</th>
@@ -205,6 +205,15 @@ table {
     width: 100%;
     border-collapse: collapse;
     
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.rounded-table {
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 th, td {
