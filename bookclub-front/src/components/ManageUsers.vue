@@ -18,11 +18,25 @@
                         <td>{{ user.email }}</td>
                         <td>
                             <router-link :to="{ name: 'EditUser', params: { id: user._id }}" class="me-2">Modifier</router-link>
-                            <a href="#"  @click.prevent="deleteUser(user._id)">Supprimer</a>
+                            <a href="#"  @click.prevent="confirmDelete(user._id)">Supprimer</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+        
+        <div v-if="showModal" class="modal">
+            <div  class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="showModal = false">Non</button>
+                        <button type="button" class="btn btn-primary" @click="deleteUser(confirmedUserId)">Oui</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="pagination">
             <button class="btn btn-primary" @click="prevPage" :disabled="currentPage === 1">Précédent</button>
@@ -80,7 +94,9 @@ export default {
                 genres: []
             },
             currentPage: 1,
-            perPage: 5
+            perPage: 5,
+            showModal: false,
+            confirmedUserId: null
         };
     },
     computed: {
@@ -124,7 +140,12 @@ export default {
                 console.error('Erreur lors de l\'ajout de l\'utilisateur:', error);
             }
         },
+        confirmDelete(userId) {
+            this.showModal = true;
+            this.confirmedUserId = userId;
+        },
         async deleteUser(userId) {
+            this.showModal = false;
             try {
                 const response = await fetch(`https://bookclub-api.vercel.app/api/users?userId=${userId}`, {
                     method: 'DELETE'
@@ -168,6 +189,7 @@ export default {
 table {
     width: 100%;
     border-collapse: collapse;
+    
 }
 
 th, td {
@@ -175,6 +197,7 @@ th, td {
     padding: 8px;
     text-align: center;
     background-color: #f2f2f2;
+    
 
 }
 
@@ -183,6 +206,7 @@ th, td {
 .table, .form {
     margin: 0 auto;
     width: 80%;
+    
 }
 
 .form {
@@ -207,6 +231,25 @@ a {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
 }
 
 </style>
