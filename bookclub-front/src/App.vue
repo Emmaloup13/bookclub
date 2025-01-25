@@ -4,18 +4,16 @@ import NavBar from './components/NavBar.vue';
 
 <template>
 
-    <NavBar />
-    <div class="router-view">
-      <RouterView />
-    </div>
+  <NavBar />
+  <div class="router-view">
+    <RouterView />
+  </div>
 
 </template>
 
-<style >
-
- .router-view {
+<style>
+.router-view {
   width: 100%;
   height: 115%;
 }
-
 </style>

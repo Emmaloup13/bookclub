@@ -37,12 +37,10 @@ export default {
 </script>
 
 <style scoped>
-
 .bookstoread-view {
-  width: 100%;
-  height: 115%;
-  background-color: #a3454b9a;
-  background-position: center center;
-  overflow-y: hidden;
+    width: 100%;
+    height: 150%;
+    background-color: #a3454b9a;
+
 }
 </style>

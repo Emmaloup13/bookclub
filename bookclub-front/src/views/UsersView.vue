@@ -1,6 +1,7 @@
 <template>
     <div class="users-view">
-        <ManageUsers ref="manageUsers" :users="users" :genres="genres" @user-added="addUserToList" @user-deleted="removeUserFromList" />
+        <ManageUsers ref="manageUsers" :users="users" :genres="genres" @user-added="addUserToList"
+            @user-deleted="removeUserFromList" />
     </div>
 </template>
 
@@ -10,7 +11,7 @@ import ManageUsers from '@/components/ManageUsers.vue';
 export default {
     components: {
         ManageUsers
-    }, 
+    },
     data() {
         return {
             users: [],
@@ -64,10 +65,9 @@ export default {
 
 <style scoped>
 .users-view {
-  width: 100%;
-  height: 115%;
-  background-color: #a3454b9a;
-  background-position: center center;
-  overflow-y: hidden;
+    width: 100%;
+    height: 130%;
+    background-color: #a3454b9a;
+    overflow-y: hidden;
 }
 </style>
