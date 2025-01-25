@@ -15,7 +15,14 @@ export const GET = async (request: Request) => {
     if (status) {
         try {
             await connect();
-            const books = await Book.find({ status });
+            // Trouver l'ObjectId correspondant au statut
+            const statusObj = await Status.findOne({ name: status });
+            if (!statusObj) {
+                return new NextResponse(
+                    JSON.stringify({ message: "Status not found" }), { status: 404 }
+                );
+            }
+            const books = await Book.find({ status: statusObj._id })
             return new NextResponse(JSON.stringify({ books }), { status: 200 });
         } catch (error: unknown) {
             if (error instanceof Error) {
