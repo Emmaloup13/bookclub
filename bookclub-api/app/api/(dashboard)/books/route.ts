@@ -16,7 +16,8 @@ export const GET = async (request: Request) => {
         try {
             await connect();
             // Trouver l'ObjectId correspondant au statut
-            const statusObj = await Status.findOne({ name: status });
+            console.log(status);
+            const statusObj = await Status.findOne({ title: status });
             if (!statusObj) {
                 return new NextResponse(
                     JSON.stringify({ message: "Status not found" }), { status: 404 }
