@@ -7,20 +7,42 @@ import { Types } from "mongoose";
 import { NextResponse } from "next/server";
 
 
-export const GET = async () => {
-    try {
-        await connect();
-        const users = await User.find().populate('genres books comments');
-        return new NextResponse(JSON.stringify(users), { status: 200 });
-    } catch (error: unknown) {
-        if (error instanceof Error) {
-            return new NextResponse(
-                JSON.stringify({ message: "Error in fetching users: " + error.message }), { status: 500 }
-            );
-        } else {
-            return new NextResponse(
-                JSON.stringify({ message: "Unknown error occurred" }), { status: 500 }
-            );
+export const GET = async (request: Request) => {
+    const { searchParams } = new URL(request.url);
+    const username = searchParams.get('username');
+
+    if (username) {
+        try {
+            await connect();
+            const user = await User.findOne({ username });
+            const exists = !!user;
+            return new NextResponse(JSON.stringify({ exists }), { status: 200 });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                return new NextResponse(
+                    JSON.stringify({ message: "Error in checking username: " + error.message }), { status: 500 }
+                );
+            } else {
+                return new NextResponse(
+                    JSON.stringify({ message: "Unknown error occurred" }), { status: 500 }
+                );
+            }
+        }
+    } else {
+        try {
+            await connect();
+            const users = await User.find().populate('genres books comments');
+            return new NextResponse(JSON.stringify(users), { status: 200 });
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                return new NextResponse(
+                    JSON.stringify({ message: "Error in fetching users: " + error.message }), { status: 500 }
+                );
+            } else {
+                return new NextResponse(
+                    JSON.stringify({ message: "Unknown error occurred" }), { status: 500 }
+                );
+            }
         }
     }
 };
