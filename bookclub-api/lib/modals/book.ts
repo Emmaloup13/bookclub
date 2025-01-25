@@ -8,7 +8,7 @@ const BookSchema = new Schema(
         pages: { type: "number", required: true },
         summary: { type: "string", required: true },
         imageUrl: { type: "string", required: false },
-        note: { type: "number", required: false },
+        note: [{ type: "number", required: false }],
         genre: { type: Schema.Types.ObjectId, ref: "Genre" },
         readers: [{ type: Schema.Types.ObjectId, ref: "User" }],
         status: { type: Schema.Types.ObjectId, ref: "Status" },
