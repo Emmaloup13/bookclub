@@ -15,7 +15,7 @@ export const GET = async (request: Request) => {
     if (status) {
         try {
             await connect();
-            const books = await User.find({ status });
+            const books = await Book.find({ status });
             return new NextResponse(JSON.stringify({ books }), { status: 200 });
         } catch (error: unknown) {
             if (error instanceof Error) {
