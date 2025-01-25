@@ -17,7 +17,7 @@
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Livres à lire</a>
+                        <router-link class="nav-link" to="/booksToRead">Livres à lire</router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Lectures en cours</a>
