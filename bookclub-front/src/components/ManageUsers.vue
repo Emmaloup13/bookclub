@@ -47,7 +47,10 @@
             <h3 class="text-center">Ajouter un lecteur</h3>
             <div class="form-group">
                 <label class="form-label mt-4" for="username">Nom du lecteur</label>
-                <input type="text" class="form-control" id="username" v-model="newUser.username" required>
+                <input type="text" class="form-control" id="username" v-model="newUser.username" @blur="checkUsername" required>
+                <div v-if="usernameExists" class="alert alert-warning mt-2">
+                    Ce nom d'utilisateur existe déjà. Veillez en choisir un autre.
+                </div>
             </div>
             <div class="form-group">
                 <label class="form-label mt-4" for="email">Email</label>
@@ -96,7 +99,8 @@ export default {
             currentPage: 1,
             perPage: 5,
             showModal: false,
-            confirmedUserId: null
+            confirmedUserId: null,
+            usernameExists: false
         };
     },
     computed: {
@@ -110,6 +114,15 @@ export default {
         }
     },
     methods: {
+        async checkUsername() {
+            try {
+                const response = await fetch(`https://bookclub-api.vercel.app/api/users?username=${this.newUser.username}`);
+                const data = await response.json();
+                this.usernameExists = data.exists;
+            } catch (error) {
+                console.error('Erreur lors de la vérification du nom d\'utilisateur:', error);
+            }
+        },
         onFileChange(event) {
             const file = event.target.files[0];
             if (file) {
