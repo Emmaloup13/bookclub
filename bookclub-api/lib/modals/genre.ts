@@ -2,7 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 const GenreSchema = new Schema(
     {
-        title: { type: "string", required: true, unique: true },
+        title: { type: String, required: true, unique: true },
         books: [{ type: Schema.Types.ObjectId, ref: "Book" }],
         readers: [{ type: Schema.Types.ObjectId, ref: "User" }],
     },
