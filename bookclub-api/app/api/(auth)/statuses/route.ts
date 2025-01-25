@@ -29,7 +29,7 @@ export const POST = async (request: Request) => {
         const newStatus = new Status(body);
         await newStatus.save();
 
-        await Book.updateMany({ "_id": newStatus.books }, { $push: { status: newStatus._id } })
+        await Book.updateMany({ "_id": newStatus.books }, { $set: { status: newStatus._id } })
 
         return new NextResponse(
             JSON.stringify({ message: "Status is created", status: newStatus }), { status: 200 }
