@@ -1,9 +1,9 @@
 <template>
-   
-       <div class="home">
+
+    <div class="home">
         <Home />
-       </div>
-    
+    </div>
+
 </template>
 
 
@@ -23,7 +23,6 @@ export default {
 
 
 <style scoped>
-
 /* .home {
     display: flex;
     justify-content: center;
@@ -34,16 +33,16 @@ export default {
 } */
 
 .home {
-  width: 100%;
-  height:115vh;
-  background: url("../assets/banniere_CLAI.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #A3454C;
-  background-position: center center;
-  overflow-y: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    height: 115vh;
+    background: url("../assets/banniere_CLAI.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #A3454C;
+    background-position: center center;
+    /* overflow-y: hidden; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
