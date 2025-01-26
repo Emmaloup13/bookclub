@@ -15,5 +15,6 @@ import NavBar from './components/NavBar.vue';
 .router-view {
   width: 100%;
   height: 115%;
+  /* background-color: #a3454b9a; */
 }
 </style>

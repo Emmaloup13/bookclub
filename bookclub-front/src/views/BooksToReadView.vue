@@ -39,9 +39,9 @@ export default {
 <style scoped>
 .bookstoread-view {
     width: 100%;
-    min-height: 110vh;
+    min-height: 100vh;
+    height: auto;
     background-color: #a3454b9a;
     padding: 20px;
-
 }
 </style>
