@@ -12,12 +12,12 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/">Accueil
+                        <router-link class="nav-link" to="/" @click="closeNavbar">Accueil
 
                         </router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/booksToRead">Livres à lire</router-link>
+                        <router-link class="nav-link" to="/booksToRead" @click="closeNavbar">Livres à lire</router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Lectures en cours</a>
@@ -30,7 +30,8 @@
                             aria-expanded="false">Paramètres</a>
                         <transition id="dropdown">
                             <div class="dropdown-menu">
-                                <router-link class="dropdown-item" to="/users">Gérer les lecteurs</router-link>
+                                <router-link class="dropdown-item" to="/users" @click="closeNavbar">Gérer les
+                                    lecteurs</router-link>
                                 <a class="dropdown-item" href="#">Ajouter un livre</a>
                                 <a class="dropdown-item" href="#">Ajouter un genre littéraire</a>
                             </div>
@@ -55,7 +56,12 @@ export default {
         };
     },
     methods: {
-
+        closeNavbar() {
+            const navbarCollapse = document.getElementById('navbarColor01');
+            if (navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show');
+            }
+        }
     }
 };
 </script>
@@ -72,9 +78,12 @@ export default {
 }
 
 .navbar-logo {
-  width: 40px; /* Ajustez cette valeur selon vos besoins */
-  height: 40px; /* Ajustez cette valeur selon vos besoins */
-  margin-right: 5px; /* Espace entre l'image et le texte */
+    width: 40px;
+    /* Ajustez cette valeur selon vos besoins */
+    height: 40px;
+    /* Ajustez cette valeur selon vos besoins */
+    margin-right: 5px;
+    /* Espace entre l'image et le texte */
 }
 
 .navbar {
@@ -82,7 +91,5 @@ export default {
     background-color: #A54B50;
 }
 
-@media (max-width: 768px) {
- 
-}
+@media (max-width: 768px) {}
 </style>
