@@ -66,8 +66,9 @@ export default {
 <style scoped>
 .users-view {
     width: 100%;
-    height: 130%;
+    min-height: 110vh;
     background-color: #a3454b9a;
     overflow-y: hidden;
+    padding: 20px;
 }
 </style>
