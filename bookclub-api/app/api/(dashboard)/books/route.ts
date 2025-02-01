@@ -108,6 +108,8 @@ export const PATCH = async (request: Request) => {
             { new: true }
         );
 
+        await Status.updateOne({ "_id": newStatus }, { $push: { books: bookId } });
+
         if (!updatedBook) {
             return new NextResponse(
                 JSON.stringify({ message: "Book not found in the database" }), { status: 404 }
