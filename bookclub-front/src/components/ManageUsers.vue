@@ -16,25 +16,28 @@
                         <td><img :src="user.imageUrl" alt="Photo de profil" class="profile-image"></td>
                         <td>{{ user.username }}</td>
                         <td>
-                            <span class="badge bg-primary me-2" v-for="genre in user.genres" :key="genre">{{genre.title}}</span>
+                            <span class="badge bg-primary me-2" v-for="genre in user.genres" :key="genre">{{ genre.title
+                                }}</span>
                         </td>
                         <td>
-                            <router-link :to="{ name: 'EditUser', params: { id: user._id }}" class="me-2">Modifier</router-link>
-                            <a href="#"  @click.prevent="confirmDelete(user._id)">Supprimer</a>
+                            <router-link :to="{ name: 'EditUser', params: { id: user._id } }"
+                                class="me-2">Modifier</router-link>
+                            <a href="#" @click.prevent="confirmDelete(user._id)">Supprimer</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        
+
         <div v-if="showModal" class="modal">
-            <div  class="modal-dialog" role="document">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
                         <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="showModal = false">Non</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            @click="showModal = false">Non</button>
                         <button type="button" class="btn btn-primary" @click="deleteUser(confirmedUserId)">Oui</button>
                     </div>
                 </div>
@@ -42,14 +45,16 @@
         </div>
         <div class="pagination">
             <button class="btn btn-primary" @click="prevPage" :disabled="currentPage === 1">Précédent</button>
-            <span>Page {{ currentPage }} sur {{ totalPages }}</span>
-            <button class="btn btn-primary" @click="nextPage" :disabled="currentPage === totalPages">Suivant</button>
+            <span>Page {{ users.length === 0 ? 0 : currentPage }} sur {{ totalPages }}</span>
+            <button class="btn btn-primary" @click="nextPage"
+                :disabled="currentPage === totalPages || users.length === 0">Suivant</button>
         </div>
         <form @submit.prevent="addUser" class="form">
             <h3 class="text-center">Ajouter un lecteur</h3>
             <div class="form-group">
                 <label class="form-label mt-4" for="username">Nom du lecteur</label>
-                <input type="text" class="form-control" id="username" v-model="newUser.username" @blur="checkUsername" required>
+                <input type="text" class="form-control" id="username" v-model="newUser.username" @blur="checkUsername"
+                    required>
                 <div v-if="usernameExists" class="alert alert-warning mt-2">
                     Ce nom d'utilisateur existe déjà. Veillez en choisir un autre.
                 </div>
@@ -70,7 +75,7 @@
             </div>
             <button type="submit" class="btn btn-primary mt-4">Ajouter</button>
         </form>
-        
+
     </div>
 </template>
 
@@ -112,7 +117,7 @@ export default {
             return this.users.slice(start, end);
         },
         totalPages() {
-            return Math.ceil(this.users.length / this.perPage);
+            return this.users.length === 0 ? 0 : Math.ceil(this.users.length / this.perPage);
         }
     },
     methods: {
@@ -204,7 +209,7 @@ export default {
 table {
     width: 100%;
     border-collapse: collapse;
-    
+
 }
 
 .table-bordered {
@@ -216,21 +221,23 @@ table {
     overflow: hidden;
 }
 
-th, td {
+th,
+td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
     background-color: #f2f2f2;
-    
+
 
 }
 
 
 
-.table, .form {
+.table,
+.form {
     margin: 0 auto;
     width: 80%;
-    
+
 }
 
 .form {
@@ -251,6 +258,7 @@ a {
 .pagination button {
     margin: 0 5px;
 }
+
 .profile-image {
     width: 40px;
     height: 40px;
@@ -258,22 +266,21 @@ a {
 }
 
 .modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-  background: white;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
 }
-
 </style>
