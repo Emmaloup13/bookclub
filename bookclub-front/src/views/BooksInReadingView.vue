@@ -54,7 +54,7 @@ export default {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                this.getBooksToRead();
+                this.getBooksInReading();
             } catch (error) {
                 console.error('Erreur lors de la mise à jour du statut du livre:', error);
             }
@@ -80,7 +80,7 @@ export default {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                this.getBooksToRead();
+                this.getBooksInReading();
             } catch (error) {
                 console.error('Erreur lors de la mise à jour du statut du livre:', error);
             }

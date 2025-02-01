@@ -33,8 +33,9 @@
     </div>
     <div class="pagination">
         <button class="btn btn-primary" @click="prevPage" :disabled="currentPage === 1">Précédent</button>
-        <span>Page {{ currentPage }} sur {{ totalPages }}</span>
-        <button class="btn btn-primary" @click="nextPage" :disabled="currentPage === totalPages">Suivant</button>
+        <span>Page {{ books.length === 0 ? 0 : currentPage }} sur {{ totalPages }}</span>
+        <button class="btn btn-primary" @click="nextPage"
+            :disabled="currentPage === totalPages || books.length === 0">Suivant</button>
     </div>
 
 </template>
@@ -73,7 +74,7 @@ export default {
             return this.books.slice(start, end);
         },
         totalPages() {
-            return Math.ceil(this.books.length / this.perPage);
+            return this.books.length === 0 ? 0 : Math.ceil(this.books.length / this.perPage);
         }
     },
     methods: {
