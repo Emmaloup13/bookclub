@@ -4,6 +4,7 @@ import EditUser from '@/components/EditUser.vue'
 import UsersView from '@/views/UsersView.vue'
 import BooksToReadView from '@/views/BooksToReadView.vue'
 import BooksInReadingView from '@/views/BooksInReadingView.vue'
+import BooksReadView from '@/views/BooksReadView.vue'
 
 const routes = [
     {
@@ -31,6 +32,11 @@ const routes = [
         path: '/booksInReading',
         name: 'BooksInReading',
         component: BooksInReadingView
+    },
+    {
+        path: '/booksRead',
+        name: 'BooksRead',
+        component: BooksReadView
     }
 ]
 

@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             books: [],
-            boutons: [{ title: "En cours", action: "en-cours" }, { title: "Lu", action: "lu" }],
+            boutons: [{ title: "En cours", action: "en-cours", icon: "bi bi-book-half" }, { title: "Lu", action: "lu", icon: "bi bi-check" }],
             title: "Livres à lire"
         };
     },

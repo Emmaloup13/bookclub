@@ -1,6 +1,7 @@
 <template>
     <div class="bookstoread-view">
-        <BookList :title="title" :books="books" :boutons="boutons" @a-lire="addToToRead" @lu="addToRead"></BookList>
+        <BookList :title="title" :books="books" :boutons="boutons" @a-lire="addToToRead" @en-cours="addToReading">
+        </BookList>
     </div>
 </template>
 
@@ -15,17 +16,17 @@ export default {
     data() {
         return {
             books: [],
-            boutons: [{ title: "À lire", action: "a-lire", icon: 'bi bi-clock' }, { title: "Lu", action: "lu", icon: 'bi bi-check' }],
-            title: "Lectures en cours"
+            boutons: [{ title: "À lire", action: "a-lire", icon: 'bi bi-clock' }, { title: "En cours", action: "en-cours", icon: 'bi bi-book-half' }],
+            title: "Livres lus"
         };
     },
     created() {
-        this.getBooksInReading();
+        this.getBooksRead();
     },
     methods: {
-        async getBooksInReading() {
+        async getBooksRead() {
             try {
-                const status = "En cours";
+                const status = "Lu";
                 const response = await fetch(`https://bookclub-api.vercel.app/api/books?status=${status}`);
                 const data = await response.json();
                 this.books = data.books;
@@ -59,17 +60,17 @@ export default {
                 console.error('Erreur lors de la mise à jour du statut du livre:', error);
             }
         },
-        async addToRead(bookIdToAdd) {
-            //get statusId of "En cours"
-            const responseStatus = await fetch(`https://bookclub-api.vercel.app/api/statuses?status=Lu`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            const dataStatus = await responseStatus.json();
-            const statusId = dataStatus.statusObj._id;
+        async addToReading(bookIdToAdd) {
             try {
+                //get statusId of "En cours"
+                const responseStatus = await fetch(`https://bookclub-api.vercel.app/api/statuses?status=En cours`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const dataStatus = await responseStatus.json();
+                const statusId = dataStatus.statusObj._id;
                 const response = await fetch(`https://bookclub-api.vercel.app/api/books`, {
                     method: 'PATCH',
                     headers: {
@@ -84,7 +85,7 @@ export default {
             } catch (error) {
                 console.error('Erreur lors de la mise à jour du statut du livre:', error);
             }
-        }
+        },
     }
 };
 </script>

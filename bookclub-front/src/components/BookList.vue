@@ -7,7 +7,7 @@
                 <div class="col-4 col-md-1">
                     <img :src="book.imageUrl" alt="Book cover" class="book-image" />
                 </div>
-                <div class="col-4 col-md-1 d-flex flex-column ">
+                <div class="col-4 col-md-1 d-flex flex-column align-items-start ">
                     <p class="card-text mb-1 ms-1">{{ book.author }}</p>
                     <p class="card-text ms-1">{{ book.pages }} pages</p>
                 </div>
@@ -18,13 +18,13 @@
                     <div class="row mb-2">
                         <div class="col">
                             <button class="btn btn-primary" @click="this.$emit(boutons[0].action, book._id)">{{
-                                boutons[0].title }} <i class="bi bi-clock"></i></button>
+                                boutons[0].title }} <i :class="boutons[0].icon"></i></button>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col">
                             <button class="btn btn-primary" @click="this.$emit(boutons[1].action, book._id)">{{
-                                boutons[1].title }}<i class="bi bi-check"></i></button>
+                                boutons[1].title }} <i :class="boutons[1].icon"></i></button>
                         </div>
                     </div>
                 </div>
@@ -98,6 +98,8 @@ export default {
 .book-image {
     width: 100px;
     height: 150px;
+    max-width: 100%;
+    height: auto;
 }
 
 .card {
