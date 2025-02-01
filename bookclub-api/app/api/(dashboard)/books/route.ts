@@ -102,13 +102,25 @@ export const PATCH = async (request: Request) => {
             );
         }
 
+        const book = await Book.findById(bookId);
+        if (!book) {
+            return new NextResponse(
+                JSON.stringify({ message: "Book not found in the database" }), { status: 404 }
+            );
+        }
+
+        const oldStatus = book.status;
+
         const updatedBook = await Book.findOneAndUpdate(
             { _id: bookId },
             { title: newTitle, author: newAuthor, pages: newPages, summary: newSummary, imageUrl: newImage, note: newNote, genre: newGenre, readers: newReaders, status: newStatus, comments: newComments },
             { new: true }
         );
+        // Remove the book from the old status
+        await Status.updateOne({ _id: oldStatus }, { $pull: { books: bookId } });
 
-        await Status.updateOne({ "_id": newStatus }, { $push: { books: bookId } });
+        // Add the book to the new status
+        await Status.updateOne({ _id: newStatus }, { $push: { books: bookId } });
 
         if (!updatedBook) {
             return new NextResponse(
