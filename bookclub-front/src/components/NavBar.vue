@@ -20,7 +20,8 @@
                         <router-link class="nav-link" to="/booksToRead" @click="closeNavbar">Livres à lire</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Lectures en cours</a>
+                        <router-link class="nav-link" to="/booksInReading" @click="closeNavbar">Lectures en
+                            cours</router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Livres lus</a>

@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import EditUser from '@/components/EditUser.vue'
 import UsersView from '@/views/UsersView.vue'
 import BooksToReadView from '@/views/BooksToReadView.vue'
+import BooksInReadingView from '@/views/BooksInReadingView.vue'
 
 const routes = [
     {
@@ -16,15 +17,20 @@ const routes = [
         component: UsersView
     },
     {
-      path: '/user/edit/:id',
-      name: 'EditUser',
-      component: EditUser,
-      props: true
+        path: '/user/edit/:id',
+        name: 'EditUser',
+        component: EditUser,
+        props: true
     },
     {
         path: '/booksToRead',
         name: 'BooksToRead',
         component: BooksToReadView
+    },
+    {
+        path: '/booksInReading',
+        name: 'BooksInReading',
+        component: BooksInReadingView
     }
 ]
 

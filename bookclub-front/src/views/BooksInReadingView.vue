@@ -1,6 +1,6 @@
 <template>
     <div class="bookstoread-view">
-        <BookList :title="title" :books="books" :boutons="boutons" @en-cours="addToReading" @lu="addToRead"></BookList>
+        <BookList :title="title" :books="books" :boutons="boutons" @a-lire="addToToRead" @lu="addToRead"></BookList>
     </div>
 </template>
 
@@ -15,28 +15,28 @@ export default {
     data() {
         return {
             books: [],
-            boutons: [{ title: "En cours", action: "en-cours" }, { title: "Lu", action: "lu" }],
-            title: "Livres à lire"
+            boutons: [{ title: "À lire", action: "a-lire" }, { title: "Lu", action: "lu" }],
+            title: "Lectures en cours"
         };
     },
     created() {
-        this.getBooksToRead();
+        this.getBooksInReading();
     },
     methods: {
-        async getBooksToRead() {
+        async getBooksInReading() {
             try {
-                const status = "À lire";
+                const status = "En cours";
                 const response = await fetch(`https://bookclub-api.vercel.app/api/books?status=${status}`);
                 const data = await response.json();
                 this.books = data.books;
             } catch (error) {
-                console.error('Erreur lors de la récupération des livres à lire:', error);
+                console.error('Erreur lors de la récupération des livres en cours:', error);
             }
         },
-        async addToReading(bookIdToAdd) {
+        async addToToRead(bookIdToAdd) {
             try {
                 //get statusId of "En cours"
-                const responseStatus = await fetch(`https://bookclub-api.vercel.app/api/statuses?status=En cours`, {
+                const responseStatus = await fetch(`https://bookclub-api.vercel.app/api/statuses?status=À lire`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'

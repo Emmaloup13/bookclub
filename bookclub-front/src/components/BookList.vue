@@ -1,5 +1,5 @@
 <template>
-    <h3 class="text-center mb-4 pt-4">Liste des livres à lire</h3>
+    <h3 class="text-center mb-4 pt-4">{{ title }}</h3>
     <div v-for="book in paginatedBooks" :key="book._id" class="card border-primary mb-3">
         <div class="card-header">{{ book.title }}</div>
         <div class="card-body">
@@ -17,12 +17,14 @@
                 <div class="col-4 col-md-2 text-center d-flex flex-column boutons ms-auto">
                     <div class="row mb-2">
                         <div class="col">
-                            <button class="btn btn-primary">En cours <i class="bi bi-clock"></i></button>
+                            <button class="btn btn-primary" @click="this.$emit(boutons[0].action, book._id)">{{
+                                boutons[0].title }} <i class="bi bi-clock"></i></button>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col">
-                            <button class="btn btn-primary">Lu <i class="bi bi-check"></i></button>
+                            <button class="btn btn-primary" @click="this.$emit(boutons[1].action, book._id)">{{
+                                boutons[1].title }}<i class="bi bi-check"></i></button>
                         </div>
                     </div>
                 </div>
@@ -44,13 +46,25 @@ export default {
         books: {
             type: Array,
             required: true
+        },
+        boutons: {
+            type: Array,
+            default: true
+        },
+        title: {
+            type: String,
+            required: true
         }
     },
+    emits: ['en-cours', 'lu', 'a-lire'],
     data() {
         return {
             currentPage: 1,
             perPage: 3
         };
+    },
+    mounted() {
+
     },
     computed: {
         paginatedBooks() {
