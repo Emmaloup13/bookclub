@@ -1,7 +1,9 @@
 <template>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
         <div class="container-fluid">
-            <img src="../assets/logo_CLAI_2.png" alt="Logo" class="navbar-logo">
+            <router-link to="/" class="navbar-logo">
+                <img src="../assets/logo_CLAI_2.png" alt="Logo" class="navbar-logo">
+            </router-link>
             <a class="navbar-brand d-block d-lg-none" href="#">
                 Le Cercle des Amies Imaginaires
             </a>

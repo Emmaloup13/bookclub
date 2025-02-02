@@ -20,9 +20,12 @@
                                 }}</span>
                         </td>
                         <td>
-                            <router-link :to="{ name: 'EditUser', params: { id: user._id } }"
-                                class="me-2">Modifier</router-link>
-                            <a href="#" @click.prevent="confirmDelete(user._id)">Supprimer</a>
+                            <!-- <router-link :to="{ name: 'EditUser', params: { id: user._id } }"
+                                class="me-2">Modifier</router-link> -->
+                            <button class="btn btn-info button-edit"
+                                @click="$emit('edit-user', user._id)">Éditer</button>
+                            <button class="btn btn-info ms-1 button-edit"
+                                @click.prevent="confirmDelete(user._id)">Supprimer</button>
                         </td>
                     </tr>
                 </tbody>
@@ -154,7 +157,6 @@ export default {
                 }
                 const newUser = await response.json();
                 this.$emit('user-added', newUser.user);
-                console.log(this.paginatedUsers);
                 this.resetForm();
             } catch (error) {
                 console.error('Erreur lors de l\'ajout de l\'utilisateur:', error);
@@ -244,8 +246,8 @@ td {
     margin-top: 4%;
 }
 
-a {
-    text-decoration: underline;
+.button-edit {
+    padding: 1%;
 }
 
 .pagination {

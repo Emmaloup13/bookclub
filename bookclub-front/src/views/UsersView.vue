@@ -1,22 +1,30 @@
 <template>
     <div class="users-view">
-        <ManageUsers ref="manageUsers" :users="users" :genres="genres" @user-added="addUserToList"
-            @user-deleted="removeUserFromList" />
+        <ManageUsers v-if="!isEditing" ref="manageUsers" :users="users" :genres="genres" @user-added="addUserToList"
+            @user-deleted="removeUserFromList" @edit-user="editUser" />
+        <EditUser v-if="isEditing" :id="editingUserId" :genres="genres" @user-updated="updateUserInList"
+            @cancel-edit="cancelEdit" />
     </div>
 </template>
 
 <script>
+import EditUser from '@/components/EditUser.vue';
 import ManageUsers from '@/components/ManageUsers.vue';
 
 export default {
     components: {
-        ManageUsers
+        ManageUsers,
+        EditUser
     },
     data() {
         return {
-            users: [],
+            users: [
+
+            ],
             genres: [],
-            isLoading: true
+            isLoading: true,
+            isEditing: false,
+            editingUserId: null
         };
     },
     created() {
@@ -58,7 +66,23 @@ export default {
             this.users = this.users.filter(user => user._id !== userId);
             this.$refs.manageUsers.setPage(1);
 
-        }
+        },
+        editUser(userId) {
+            this.isEditing = true;
+            this.editingUserId = userId;
+        },
+        updateUserInList(updatedUser) {
+            const index = this.users.findIndex(user => user._id === updatedUser._id);
+            if (index !== -1) {
+                this.users.splice(index, 1, updatedUser);
+            }
+            this.isEditing = false;
+            this.editingUserId = null;
+        },
+        cancelEdit() {
+            this.isEditing = false;
+            this.editingUserId = null;
+        },
     }
 };
 </script>
