@@ -7,9 +7,9 @@
                 <div class="col-4 col-md-1">
                     <img :src="book.imageUrl" alt="Book cover" class="book-image" />
                 </div>
-                <div class="col-4 col-md-1 d-flex flex-column align-items-start ">
-                    <p class="card-text mb-1 ms-1">{{ book.author }}</p>
-                    <p class="card-text ms-1">{{ book.pages }} pages</p>
+                <div class="col-4 col-md-1 d-flex flex-column card-text">
+                    <p class="mb-1 ms-1">{{ book.author }}</p>
+                    <p class="ms-1">{{ book.pages }} pages</p>
                 </div>
                 <div class="col-md-8 d-none d-md-block">
                     <p class="card-text">{{ book.summary }}</p>
