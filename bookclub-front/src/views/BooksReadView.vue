@@ -1,5 +1,5 @@
 <template>
-    <div class="bookstoread-view">
+    <div class="booksread-view">
         <BookList :title="title" :books="books" :boutons="boutons" @a-lire="addToToRead" @en-cours="addToReading">
         </BookList>
     </div>
@@ -91,7 +91,7 @@ export default {
 </script>
 
 <style scoped>
-.bookstoread-view {
+.booksread-view {
     width: 100%;
     min-height: 100vh;
     height: auto;

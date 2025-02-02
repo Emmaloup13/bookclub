@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import EditUser from '@/components/EditUser.vue'
 import UsersView from '@/views/UsersView.vue'
 import BooksToReadView from '@/views/BooksToReadView.vue'
 import BooksInReadingView from '@/views/BooksInReadingView.vue'
 import BooksReadView from '@/views/BooksReadView.vue'
+import BookDetails from '@/views/BookDetails.vue'
 
 const routes = [
     {
@@ -16,12 +16,6 @@ const routes = [
         path: '/users',
         name: 'Users',
         component: UsersView
-    },
-    {
-        path: '/user/edit/:id',
-        name: 'EditUser',
-        component: EditUser,
-        props: true
     },
     {
         path: '/booksToRead',
@@ -37,6 +31,12 @@ const routes = [
         path: '/booksRead',
         name: 'BooksRead',
         component: BooksReadView
+    },
+    {
+        path: '/books/:id',
+        name: 'BookDetails',
+        component: BookDetails,
+        props: true
     }
 ]
 

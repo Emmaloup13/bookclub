@@ -5,7 +5,9 @@
         <div class="card-body">
             <div class="row g-0">
                 <div class="col-4 col-md-1">
-                    <img :src="book.imageUrl" alt="Book cover" class="book-image" />
+                    <router-link :to="{ name: 'BookDetails', params: { id: book._id } }">
+                        <img :src="book.imageUrl" alt="Book cover" class="book-image" />
+                    </router-link>
                 </div>
                 <div class="col-4 col-md-1 d-flex flex-column card-text">
                     <p class="mb-1 ms-1">{{ book.author }}</p>
@@ -50,7 +52,7 @@ export default {
         },
         boutons: {
             type: Array,
-            default: true
+            required: true
         },
         title: {
             type: String,
@@ -61,11 +63,10 @@ export default {
     data() {
         return {
             currentPage: 1,
-            perPage: 3
+            perPage: 3,
         };
     },
     mounted() {
-
     },
     computed: {
         paginatedBooks() {
