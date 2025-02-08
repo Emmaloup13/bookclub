@@ -16,7 +16,8 @@ export default {
         return {
             books: [],
             boutons: [{ title: "À lire", action: "a-lire", icon: 'bi bi-clock' }, { title: "Lu", action: "lu", icon: 'bi bi-check' }],
-            title: "Lectures en cours"
+            title: "Lectures en cours",
+            isLoading: true
         };
     },
     created() {
@@ -29,6 +30,9 @@ export default {
                 const response = await fetch(`https://bookclub-api.vercel.app/api/books?status=${status}`);
                 const data = await response.json();
                 this.books = data.books;
+                if (this.books) {
+                    this.isLoading = false;
+                }
             } catch (error) {
                 console.error('Erreur lors de la récupération des livres en cours:', error);
             }

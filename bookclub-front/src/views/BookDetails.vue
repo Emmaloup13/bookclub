@@ -33,7 +33,7 @@
                                 this.boutons["En cours"].title }} <i
                                     :class="this.boutons['En cours'].icon"></i></button>
                         </div>
-                        <div class="col-12 col-md-4 d-flex justify-content-center">
+                        <div class="col-12 col-md-4 d-flex justify-content-center secondButton">
                             <button class="btn btn-primary" @click="this.addToRead(book._id)">
                                 {{ this.boutons["Lu"].title }} <i :class="this.boutons['Lu'].icon"></i></button>
                         </div>
@@ -47,7 +47,7 @@
                             <button class="btn btn-primary" @click="this.addToToRead(book._id)">
                                 {{ this.boutons["À lire"].title }} <i :class="this.boutons['À lire'].icon"></i></button>
                         </div>
-                        <div class="col-12 col-md-4 d-flex justify-content-center">
+                        <div class="col-12 col-md-4 d-flex justify-content-center secondButton">
                             <button class="btn btn-primary" @click="this.addToRead(book._id)">{{
                                 this.boutons["Lu"].title }} <i :class="this.boutons['Lu'].icon"></i></button>
                         </div>
@@ -61,7 +61,7 @@
                             <button class="btn btn-primary" @click="this.addToToRead(book._id)">
                                 {{ this.boutons["À lire"].title }} <i :class="this.boutons['À lire'].icon"></i></button>
                         </div>
-                        <div class="col-12 col-md-4 d-flex justify-content-center">
+                        <div class="col-12 col-md-4 d-flex justify-content-center secondButton">
                             <button class="btn btn-primary" @click="this.addToReading(book._id)">
                                 {{ this.boutons["En cours"].title }} <i
                                     :class="this.boutons['En cours'].icon"></i></button>
@@ -245,6 +245,10 @@ col {
     .book-image {
         width: 50%;
         height: auto;
+    }
+
+    .secondButton {
+        margin-top: 1%;
     }
 }
 </style>

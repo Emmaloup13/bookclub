@@ -1,6 +1,14 @@
 <template>
     <h3 class="text-center mb-4 pt-4">{{ title }}</h3>
-    <div v-for="book in paginatedBooks" :key="book._id" class="card border-primary mb-3">
+    <div v-if="isLoading" class="d-flex justify-content-center align-items-center">
+        <div class="spinner-border text-info" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div v-if="!isLoading && paginatedBooks.length == 0" class="d-flex justify-content-center align-items-center">
+        <strong>Pas de livres dans cette liste !</strong>
+    </div>
+    <div v-else v-for="book in paginatedBooks" :key="book._id" class="card border-primary mb-3">
         <div class="card-header">{{ book.title }}</div>
         <div class="card-body">
             <div class="row g-0">
@@ -57,6 +65,10 @@ export default {
         title: {
             type: String,
             required: true
+        },
+        isLoading: {
+            type: Boolean,
+            required: false
         }
     },
     emits: ['en-cours', 'lu', 'a-lire'],
