@@ -34,7 +34,7 @@ export const GET = async (request: Request) => {
     } else {
         try {
             await connect();
-            const statuses = await Status.find().populate('books');
+            const statuses = await Status.find().populate({ path: 'books', model: Book });
             return new NextResponse(JSON.stringify(statuses), { status: 200 });
         } catch (error: unknown) {
             if (error instanceof Error) {

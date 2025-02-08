@@ -9,7 +9,7 @@ import { NextResponse } from "next/server";
 export const GET = async () => {
     try {
         await connect();
-        const comments = await Comment.find().populate('author book');
+        const comments = await Comment.find().populate([{ path: 'author', model: User }, { path: 'book', model: Book }]);
         return new NextResponse(JSON.stringify(comments), { status: 200 });
     } catch (error: unknown) {
         if (error instanceof Error) {

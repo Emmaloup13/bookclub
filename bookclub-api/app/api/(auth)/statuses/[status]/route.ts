@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import connect from "@/lib/db";
+import Book from "@/lib/modals/book";
 import Status from "@/lib/modals/status";
 import { Types } from "mongoose";
 import { NextResponse } from "next/server";
@@ -18,7 +19,7 @@ export const GET = async (request: Request, context: { params: any }) => {
 
         await connect();
 
-        const status = await Status.findById(statusId).populate("books");
+        const status = await Status.findById(statusId).populate({ path: 'books', model: Book });
 
         return new NextResponse(
             JSON.stringify({ message: "Status was found", status: status }), { status: 200 }

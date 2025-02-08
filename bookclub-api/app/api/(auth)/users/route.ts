@@ -31,7 +31,7 @@ export const GET = async (request: Request) => {
     } else {
         try {
             await connect();
-            const users = await User.find().populate('genres books comments');
+            const users = await User.find().populate([{ path: 'genres', model: Genre }, { path: 'books', model: Book }, { path: 'comments', model: Comment }]);
             return new NextResponse(JSON.stringify(users), { status: 200 });
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -96,7 +96,7 @@ export const PATCH = async (request: Request) => {
             { _id: userId },
             { username: newUsername, imageUrl: newImageUrl, genres: newGenres, readers: newReaders, books: newBooks, comments: newComments },
             { new: true }
-        ).populate('genres books comments');
+        ).populate([{ path: 'genres', model: Genre }, { path: 'books', model: Book }, { path: 'comments', model: Comment }]);
 
         await Book.updateMany({ "_id": { $in: newBooks } }, { $push: { readers: userId } });
         await Comment.updateMany({ "_id": { $in: newComments } }, { $push: { author: userId } });

@@ -1,12 +1,11 @@
 import mongoose, { Schema } from "mongoose";
-import User from './user';
-import Book from "./book";
 
-const CommentSchema: Schema = new Schema(
+
+const CommentSchema = new Schema(
     {
         text: { type: String, required: true },
-        author: { type: Schema.Types.ObjectId, ref: User, required: true, unique: true },
-        book: { type: Schema.Types.ObjectId, ref: Book, required: true },
+        author: { type: Schema.Types.ObjectId, ref: "User", required: true, unique: true },
+        book: { type: Schema.Types.ObjectId, ref: "Book", required: true },
     },
     {
         timestamps: true
@@ -16,3 +15,4 @@ const CommentSchema: Schema = new Schema(
 const Comment = mongoose.model("Comment", CommentSchema);
 
 export default Comment;
+

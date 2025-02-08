@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import connect from "@/lib/db";
+import Book from "@/lib/modals/book";
 import Comment from "@/lib/modals/comment";
+import User from "@/lib/modals/user";
 import { Types } from "mongoose";
 import { NextResponse } from "next/server";
 
@@ -18,7 +20,7 @@ export const GET = async (request: Request, context: { params: any }) => {
 
         await connect();
 
-        const comment = await Comment.findById(commentId).populate("author book");
+        const comment = await Comment.findById(commentId).populate([{ path: 'author', model: User }, { path: 'book', model: Book }]);
 
         return new NextResponse(
             JSON.stringify({ message: "Comment was found", comment: comment }), { status: 200 }

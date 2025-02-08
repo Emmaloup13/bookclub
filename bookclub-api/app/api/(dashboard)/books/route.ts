@@ -39,7 +39,7 @@ export const GET = async (request: Request) => {
     } else {
         try {
             await connect();
-            const books = await Book.find().populate('genre readers status comments');
+            const books = await Book.find().populate([{ path: 'genre', model: Genre }, { path: 'readers', model: User }, { path: 'status', model: Status }, { path: 'comments', model: Comment }]);
             return new NextResponse(JSON.stringify(books), { status: 200 });
         } catch (error: unknown) {
             if (error instanceof Error) {
