@@ -44,7 +44,7 @@
                             <p class="mb-1 ms-1">Statut du livre : {{ this.bookStatus }}</p>
                         </div>
                         <div class="col-12 col-md-4 d-flex justify-content-center">
-                            <button class="btn btn-primary" @click="this.addToToRead(book_id)">
+                            <button class="btn btn-primary" @click="this.addToToRead(book._id)">
                                 {{ this.boutons["À lire"].title }} <i :class="this.boutons['À lire'].icon"></i></button>
                         </div>
                         <div class="col-12 col-md-4 d-flex justify-content-center">
@@ -58,7 +58,7 @@
                             <p class="mb-1 ms-1">Statut du livre : {{ this.bookStatus }}</p>
                         </div>
                         <div class="col-12 col-md-4 d-flex justify-content-center">
-                            <button class="btn btn-primary" @click="this.addToToRead(book_id)">
+                            <button class="btn btn-primary" @click="this.addToToRead(book._id)">
                                 {{ this.boutons["À lire"].title }} <i :class="this.boutons['À lire'].icon"></i></button>
                         </div>
                         <div class="col-12 col-md-4 d-flex justify-content-center">
@@ -141,10 +141,11 @@ export default {
                     },
                     body: JSON.stringify({ bookId: bookIdToAdd, newStatus: statusId })
                 });
-                this.bookStatus = dataStatus.statusObj.title;
-                console.log(this.bookStatus)
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
+                }
+                else {
+                    this.bookStatus = dataStatus.statusObj.title;
                 }
             } catch (error) {
                 console.error('Erreur lors de la mise à jour du statut du livre:', error);
@@ -168,10 +169,11 @@ export default {
                     },
                     body: JSON.stringify({ bookId: bookIdToAdd, newStatus: statusId })
                 });
-                this.bookStatus = dataStatus.statusObj.title;
-                console.log(this.bookStatus)
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
+                }
+                else {
+                    this.bookStatus = dataStatus.statusObj.title;
                 }
             } catch (error) {
                 console.error('Erreur lors de la mise à jour du statut du livre:', error);
@@ -195,10 +197,11 @@ export default {
                     },
                     body: JSON.stringify({ bookId: bookIdToAdd, newStatus: statusId })
                 });
-                this.bookStatus = dataStatus.statusObj.title;
-                console.log(this.bookStatus)
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
+                }
+                else {
+                    this.bookStatus = dataStatus.statusObj.title;
                 }
             } catch (error) {
                 console.error('Erreur lors de la mise à jour du statut du livre:', error);
