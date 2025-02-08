@@ -11,8 +11,6 @@ const StatusSchema = new Schema(
     }
 )
 
-// const Status = models.Status || model("Status", StatusSchema);
+const Status = mongoose.model('Status', StatusSchema);
 
-// export default Status;
-
-module.exports = mongoose.model('Status', StatusSchema);
+export default Status;
