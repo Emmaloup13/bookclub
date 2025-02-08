@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const GenreSchema = new Schema(
     {
@@ -11,6 +11,8 @@ const GenreSchema = new Schema(
     }
 )
 
-const Genre = models.Genre || model("Genre", GenreSchema);
+// const Genre = models.Genre || model("Genre", GenreSchema);
 
-export default Genre;
+// export default Genre;
+
+module.exports = mongoose.model('Genre', GenreSchema);

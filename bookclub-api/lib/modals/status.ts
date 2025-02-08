@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
 const StatusSchema = new Schema(
@@ -11,6 +11,8 @@ const StatusSchema = new Schema(
     }
 )
 
-const Status = models.Status || model("Status", StatusSchema);
+// const Status = models.Status || model("Status", StatusSchema);
 
-export default Status;
+// export default Status;
+
+module.exports = mongoose.model('Status', StatusSchema);
