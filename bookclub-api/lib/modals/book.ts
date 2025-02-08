@@ -1,7 +1,10 @@
 import mongoose, { Schema } from "mongoose";
+import Genre from './genre';
+import User from './user';
+import Status from './status';
+import Comment from './comment';
 
-
-const BookSchema = new Schema(
+const BookSchema: Schema = new Schema(
     {
         title: { type: String, required: true, unique: true },
         author: { type: String, required: true },
@@ -9,10 +12,10 @@ const BookSchema = new Schema(
         summary: { type: String, required: true },
         imageUrl: { type: String, required: false },
         note: [{ type: Number, required: false }],
-        genre: { type: Schema.Types.ObjectId, ref: "genre" },
-        readers: [{ type: Schema.Types.ObjectId, ref: "user" }],
-        status: { type: Schema.Types.ObjectId, ref: "status" },
-        comments: [{ type: Schema.Types.ObjectId, ref: "comment" }]
+        genre: { type: Schema.Types.ObjectId, ref: Genre },
+        readers: [{ type: Schema.Types.ObjectId, ref: User }],
+        status: { type: Schema.Types.ObjectId, ref: Status },
+        comments: [{ type: Schema.Types.ObjectId, ref: Comment }]
     },
     {
         timestamps: true

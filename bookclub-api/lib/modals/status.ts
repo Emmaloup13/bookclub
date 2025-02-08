@@ -1,10 +1,10 @@
 import mongoose, { Schema } from "mongoose";
+import Book from "./book";
 
-
-const StatusSchema = new Schema(
+const StatusSchema: Schema = new Schema(
     {
         title: { type: String, required: true, unique: true },
-        books: [{ type: Schema.Types.ObjectId, ref: "book" }]
+        books: [{ type: Schema.Types.ObjectId, ref: Book }]
     },
     {
         timestamps: true
