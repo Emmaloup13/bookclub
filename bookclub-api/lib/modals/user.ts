@@ -7,9 +7,9 @@ const UserSchema = new Schema(
         username: { type: String, required: true, unique: true },
         password: { type: String, required: true },
         imageUrl: { type: String, required: false },
-        genres: [{ type: Schema.Types.ObjectId, ref: "Genre" }],
-        books: [{ type: Schema.Types.ObjectId, ref: "Book" }],
-        comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }]
+        genres: [{ type: Schema.Types.ObjectId, ref: "genre" }],
+        books: [{ type: Schema.Types.ObjectId, ref: "book" }],
+        comments: [{ type: Schema.Types.ObjectId, ref: "comment" }]
     },
     {
         timestamps: true

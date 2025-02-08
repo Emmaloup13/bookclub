@@ -4,7 +4,7 @@ import mongoose, { Schema } from "mongoose";
 const StatusSchema = new Schema(
     {
         title: { type: String, required: true, unique: true },
-        books: [{ type: Schema.Types.ObjectId, ref: "Book" }]
+        books: [{ type: Schema.Types.ObjectId, ref: "book" }]
     },
     {
         timestamps: true
