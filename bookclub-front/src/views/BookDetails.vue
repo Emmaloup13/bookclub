@@ -2,7 +2,6 @@
     <div class="bookdetails-view">
         <div v-if="isLoading" class="d-flex justify-content-center align-items-center">
             <div class="spinner-border text-info" role="status">
-                <span>Ninaaa</span>
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
@@ -25,18 +24,48 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row g-0 align-items-start">
-                        <!-- <div class="col-12 col-md-4 d-flex justify-content-center">
-                            <p class="mb-1 ms-1">Statut du livre : {{ book.status.title }}</p>
+                    <div class="row g-0 align-items-start" v-if="this.bookStatus == 'À lire'">
+                        <div class="col-12 col-md-4 d-flex justify-content-center">
+                            <p class="mb-1 ms-1">Statut du livre : {{ this.bookStatus }}</p>
                         </div>
                         <div class="col-12 col-md-4 d-flex justify-content-center">
+                            <button class="btn btn-primary" @click="this.addToReading(book._id)">{{
+                                this.boutons["En cours"].title }} <i
+                                    :class="this.boutons['En cours'].icon"></i></button>
+                        </div>
+                        <div class="col-12 col-md-4 d-flex justify-content-center">
+                            <button class="btn btn-primary" @click="this.addToRead(book._id)">
+                                {{ this.boutons["Lu"].title }} <i :class="this.boutons['Lu'].icon"></i></button>
+                        </div>
+                    </div>
 
-                            <button class="btn btn-primary">{{
-                                this.boutonsArray[0].title }} <i :class="this.boutonsArray[0].icon"></i></button>
+                    <div class="row g-0 align-items-start" v-else-if="this.bookStatus == 'En cours'">
+                        <div class="col-12 col-md-4 d-flex justify-content-center">
+                            <p class="mb-1 ms-1">Statut du livre : {{ this.bookStatus }}</p>
                         </div>
                         <div class="col-12 col-md-4 d-flex justify-content-center">
-                            <p class="mb-1 ms-1">Statut du livre : {{ book.status.title }}</p>
-                        </div> -->
+                            <button class="btn btn-primary" @click="this.addToToRead(book_id)">
+                                {{ this.boutons["À lire"].title }} <i :class="this.boutons['À lire'].icon"></i></button>
+                        </div>
+                        <div class="col-12 col-md-4 d-flex justify-content-center">
+                            <button class="btn btn-primary" @click="this.addToRead(book._id)">{{
+                                this.boutons["Lu"].title }} <i :class="this.boutons['Lu'].icon"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="row g-0 align-items-start" v-else-if="this.bookStatus == 'Lu'">
+                        <div class="col-12 col-md-4 d-flex justify-content-center">
+                            <p class="mb-1 ms-1">Statut du livre : {{ this.bookStatus }}</p>
+                        </div>
+                        <div class="col-12 col-md-4 d-flex justify-content-center">
+                            <button class="btn btn-primary" @click="this.addToToRead(book_id)">
+                                {{ this.boutons["À lire"].title }} <i :class="this.boutons['À lire'].icon"></i></button>
+                        </div>
+                        <div class="col-12 col-md-4 d-flex justify-content-center">
+                            <button class="btn btn-primary" @click="this.addToReading(book._id)">
+                                {{ this.boutons["En cours"].title }} <i
+                                    :class="this.boutons['En cours'].icon"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -61,6 +90,8 @@ export default {
         return {
             book: {},
             isLoading: true,
+            boutons: boutons,
+            bookStatus: ""
         };
     },
     mounted() {
@@ -83,7 +114,7 @@ export default {
                 }
                 const resp = await response.json();
                 this.book = resp.book;
-
+                this.bookStatus = this.book.status.title
                 this.isLoading = false;
             } catch (error) {
                 console.error('Erreur lors de la récupération du livre:', error);
@@ -91,7 +122,88 @@ export default {
         },
         goBack() {
             this.$router.go(-1); // Retourne à la page précédente
-        }
+        },
+        async addToReading(bookIdToAdd) {
+            try {
+                //get statusId of "En cours"
+                const responseStatus = await fetch(`https://bookclub-api.vercel.app/api/statuses?status=En cours`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const dataStatus = await responseStatus.json();
+                const statusId = dataStatus.statusObj._id;
+                const response = await fetch(`https://bookclub-api.vercel.app/api/books`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ bookId: bookIdToAdd, newStatus: statusId })
+                });
+                this.bookStatus = dataStatus.statusObj.title;
+                console.log(this.bookStatus)
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la mise à jour du statut du livre:', error);
+            }
+        },
+        async addToRead(bookIdToAdd) {
+            //get statusId of "Lu"
+            const responseStatus = await fetch(`https://bookclub-api.vercel.app/api/statuses?status=Lu`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const dataStatus = await responseStatus.json();
+            const statusId = dataStatus.statusObj._id;
+            try {
+                const response = await fetch(`https://bookclub-api.vercel.app/api/books`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ bookId: bookIdToAdd, newStatus: statusId })
+                });
+                this.bookStatus = dataStatus.statusObj.title;
+                console.log(this.bookStatus)
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la mise à jour du statut du livre:', error);
+            }
+        },
+        async addToToRead(bookIdToAdd) {
+            try {
+                //get statusId of "A lire"
+                const responseStatus = await fetch(`https://bookclub-api.vercel.app/api/statuses?status=À lire`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const dataStatus = await responseStatus.json();
+                const statusId = dataStatus.statusObj._id;
+                const response = await fetch(`https://bookclub-api.vercel.app/api/books`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ bookId: bookIdToAdd, newStatus: statusId })
+                });
+                this.bookStatus = dataStatus.statusObj.title;
+                console.log(this.bookStatus)
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la mise à jour du statut du livre:', error);
+            }
+        },
     }
 }
 </script>
