@@ -7,8 +7,6 @@ import Status from "@/lib/modals/status";
 import User from "@/lib/modals/user";
 import { Types } from "mongoose";
 import { NextResponse } from "next/server";
-import path from "path";
-
 
 
 export const GET = async (request: Request, context: { params: any }) => {
