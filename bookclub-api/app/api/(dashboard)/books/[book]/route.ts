@@ -7,6 +7,7 @@ import Status from "@/lib/modals/status";
 import User from "@/lib/modals/user";
 import { Types } from "mongoose";
 import { NextResponse } from "next/server";
+import path from "path";
 
 
 
@@ -22,7 +23,7 @@ export const GET = async (request: Request, context: { params: any }) => {
 
         await connect();
 
-        const book = await Book.findById(bookId).populate([{ path: 'genre', model: Genre }, { path: 'readers', model: User }, { path: 'status', model: Status }, { path: 'comments', model: Comment }]);
+        const book = await Book.findById(bookId).populate([{ path: 'genre', model: Genre }, { path: 'readers', model: User }, { path: 'status', model: Status }, { path: 'comments', model: Comment, populate: [{ path: 'author', model: User }, { path: 'book', model: Book }] }]);
 
         return new NextResponse(
             JSON.stringify({ message: "Book was found", book: book }), { status: 200 }
