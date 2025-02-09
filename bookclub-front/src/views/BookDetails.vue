@@ -69,63 +69,66 @@
                     </div>
                 </div>
             </div>
-            <section>
+            <section class="section">
                 <div class="container my-2 py-2">
                     <div class="row d-flex justify-content-center">
-                        <div class="col-md-12 col-lg-10 col-xl-8">
-                            <div class="card border-dark mb-md-3">
-                                <!-- Comment -->
-                                <div v-for="comment in bookComments" :key="comment._id" class="card-body">
-                                    <div class="d-flex flex-start align-items-center">
-                                        <img class="rounded-circle shadow-1-strong me-3" :src="comment.author.imageUrl"
-                                            alt="avatar" width="60" height="60" />
-                                        <div>
-                                            <h6 class="fw-bold text-primary mb-1">{{ comment.author.username }}</h6>
-                                            <p class="text-muted small mb-0">
-                                                {{
-                                                    new Date(comment.createdAt).toLocaleString()
-                                                }}
-                                            </p>
-                                        </div>
+                        <!-- <div class="col-md-12 col-lg-10 col-xl-8"> -->
+                        <div class="card border-dark mb-md-3">
+                            <div class="card-footer py-3 border-0">
+                                <div class="d-flex flex-start w-100">
+                                    <div data-mdb-input-init class="form-outline w-100">
+                                        <label class="form-label mt-2" for="commentArea">Sors ta plus belle Plume à
+                                            Papote !</label>
+                                        <textarea class="form-control" id="commentArea" rows="5"
+                                            style="background: #fff;"
+                                            @input="updateFutureCommentValue($event.target.value)"></textarea>
+
+                                        <label class="form-label mt-2" for="authorChoice">Qui bavarde ? (Ne laisse
+                                            pas Rita écrire des sornettes)</label>
+                                        <select class="form-select" id="authorChoice"
+                                            @change="onselectionchange($event)">
+                                            <option value="0">Rita Skeeter</option>
+                                            <option v-for="author in authors" :key="author._id" :value="author._id">
+                                                {{ author.username }}
+                                            </option>
+                                        </select>
+
                                     </div>
-
-                                    <p class="mt-3 mb-4 pb-2">
-                                        {{ comment.text }}
-                                    </p>
-
                                 </div>
-                                <div class="card-footer py-3 border-0">
-                                    <div class="d-flex flex-start w-100">
-                                        <div data-mdb-input-init class="form-outline w-100">
-                                            <label class="form-label mt-2" for="commentArea">Sors ta plus belle Plume à
-                                                Papote !</label>
-                                            <textarea class="form-control" id="commentArea" rows="5"
-                                                style="background: #fff;"
-                                                @input="updateFutureCommentValue($event.target.value)"></textarea>
-
-                                            <label class="form-label mt-2" for="authorChoice">Qui bavarde ? (Ne laisse
-                                                pas Rita écrire des sornettes)</label>
-                                            <select class="form-select w-25" id="authorChoice"
-                                                @change="onselectionchange($event)">
-                                                <option value="0">Rita Skeeter</option>
-                                                <option v-for="author in authors" :key="author._id" :value="author._id">
-                                                    {{ author.username }}
-                                                </option>
-                                            </select>
-
-                                        </div>
-                                    </div>
-                                    <div class="float-end mt-2 pt-1">
-                                        <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-primary btn-sm me-1" @click="postComment">Poster le
-                                            commentaire</button>
-                                        <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-outline-primary btn-sm" @click="eraseTextArea">Supprimer le
-                                            texte</button>
-                                    </div>
+                                <div class="float-end mt-2 pt-1">
+                                    <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                        class="btn btn-primary btn-sm me-1" @click="postComment">Poster
+                                        le
+                                        commentaire</button>
+                                    <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                        class="btn btn-outline-primary btn-sm secondButton"
+                                        @click="eraseTextArea">Supprimer le
+                                        texte</button>
                                 </div>
                             </div>
+                            <!-- Comments -->
+                            <div v-for="comment in bookComments" :key="comment._id" class="card-body">
+                                <div class="d-flex flex-start align-items-center">
+                                    <img class="rounded-circle shadow-1-strong me-3" :src="comment.author.imageUrl"
+                                        alt="avatar" width="60" height="60" />
+                                    <div>
+                                        <h6 class="fw-bold text-primary mb-1">{{ comment.author.username }}</h6>
+                                        <p class="text-muted small mb-0">
+                                            {{
+                                                new Date(comment.createdAt).toLocaleString()
+                                            }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <p class="mt-3 mb-4 pb-2">
+                                    {{ comment.text }}
+                                </p>
+
+                            </div>
+
                         </div>
+                        <!-- </div> -->
                     </div>
                 </div>
             </section>
@@ -193,7 +196,7 @@ export default {
                 const resp = await response.json();
                 this.book = resp.book;
                 this.bookStatus = this.book.status.title;
-                this.bookComments = this.book.comments;
+                this.bookComments = this.book.comments.reverse();
                 this.isLoading = false;
             } catch (error) {
                 console.error('Erreur lors de la récupération du livre:', error);
@@ -306,7 +309,7 @@ export default {
                     throw new Error('Network response was not ok');
                 }
                 else {
-                    this.getBookById(this.book._id);
+                    this.getBookById();
                     this.eraseTextArea();
                 }
             } catch (error) {
@@ -350,6 +353,10 @@ col {
     animation-duration: 2s;
 }
 
+#authorChoice {
+    width: 25%;
+}
+
 @media (max-width: 768px) {
     .book-image {
         width: 50%;
@@ -359,5 +366,10 @@ col {
     .secondButton {
         margin-top: 1%;
     }
+
+    #authorChoice {
+        width: 75%;
+    }
+
 }
 </style>
