@@ -29,7 +29,6 @@ export const POST = async (request: Request) => {
         const body = await request.json();
         await connect();
         const newComment = new Comment(body);
-        newComment.populate([{ path: 'author', model: User }, { path: 'book', model: Book }]);
         await newComment.save();
 
         await User.updateOne({ "_id": newComment.author }, { $push: { comments: newComment._id } });
@@ -74,7 +73,7 @@ export const PATCH = async (request: Request) => {
             { _id: commentId },
             { text: newText },
             { new: true }
-        ).populate([{ path: 'author', model: User }, { path: 'book', model: Book }]);
+        ).populate([{ path: 'author', model: User }, { path: 'book', model: Book }]);;
 
         if (!updatedComment) {
             return new NextResponse(
