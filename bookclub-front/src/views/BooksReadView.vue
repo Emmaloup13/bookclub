@@ -1,6 +1,7 @@
 <template>
     <div class="booksread-view">
-        <BookList :title="title" :books="books" :boutons="boutons" @a-lire="addToToRead" @en-cours="addToReading">
+        <BookList :title="title" :books="books" :boutons="boutons" :isLoading="isLoading" @a-lire="addToToRead"
+            @en-cours="addToReading">
         </BookList>
     </div>
 </template>
@@ -17,7 +18,8 @@ export default {
         return {
             books: [],
             boutons: [{ title: "À lire", action: "a-lire", icon: 'bi bi-clock' }, { title: "En cours", action: "en-cours", icon: 'bi bi-book-half' }],
-            title: "Livres lus"
+            title: "Livres lus",
+            isLoading: true
         };
     },
     created() {
@@ -30,6 +32,9 @@ export default {
                 const response = await fetch(`https://bookclub-api.vercel.app/api/books?status=${status}`);
                 const data = await response.json();
                 this.books = data.books;
+                if (this.books) {
+                    this.isLoading = false;
+                }
             } catch (error) {
                 console.error('Erreur lors de la récupération des livres en cours:', error);
             }

@@ -1,6 +1,7 @@
 <template>
     <div class="booksinreading-view">
-        <BookList :title="title" :books="books" :boutons="boutons" @a-lire="addToToRead" @lu="addToRead"></BookList>
+        <BookList :title="title" :books="books" :boutons="boutons" :isLoading="isLoading" @a-lire="addToToRead"
+            @lu="addToRead"></BookList>
     </div>
 </template>
 

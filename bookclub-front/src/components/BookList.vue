@@ -1,11 +1,11 @@
 <template>
     <h3 class="text-center mb-4 pt-4">{{ title }}</h3>
     <div v-if="isLoading" class="d-flex justify-content-center align-items-center">
-        <div class="spinner-border text-info" role="status">
+        <div class="spinner-border text-dark" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
-    <div v-if="!isLoading && paginatedBooks.length == 0" class="d-flex justify-content-center align-items-center">
+    <div v-else-if="!isLoading && paginatedBooks.length == 0" class="d-flex justify-content-center align-items-center">
         <strong>Pas de livres dans cette liste !</strong>
     </div>
     <div v-else v-for="book in paginatedBooks" :key="book._id" class="card border-primary mb-3">
