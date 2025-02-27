@@ -108,9 +108,10 @@
                             </div>
                             <!-- Comments -->
                             <div v-for="comment in bookComments" :key="comment._id" class="card-body">
-                                <div class="d-flex flex-start align-items-center">
-                                    <img class="rounded-circle shadow-1-strong me-3" :src="comment.author.imageUrl"
-                                        alt="avatar" width="60" height="60" />
+                                <div class="row">
+                                    <div class="col-10 d-flex flex-start align-items-center">
+                                        <img class="rounded-circle shadow-1-strong me-3" :src="comment.author.imageUrl"
+                                    alt="avatar" width="60" height="60" />
                                     <div>
                                         <h6 class="fw-bold text-primary mb-1">{{ comment.author.username }}</h6>
                                         <p class="text-muted small mb-0">
@@ -119,11 +120,43 @@
                                             }}
                                         </p>
                                     </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="d-flex justify-content-end">
+                                            <button @click="editComment(comment._id)" class="btn btn-danger btn-sm me-2" id="editCommentButton">
+                                                <i :class="isEditing[comment._id] ? 'fa-solid fa-xmark fa-lg' : 'fa-solid fa-pencil'"></i>
+                                            </button>
+                                            <button @click="deleteComment(comment._id)" class="btn btn-primary btn-sm">
+                                                <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <p class="mt-3 mb-4 pb-2">
-                                    {{ comment.text }}
-                                </p>
+                                
+                                <div class="mt-3 mb-4 pb-2">
+                                    <p :hidden="this.editCommentMode">
+                                        {{ comment.text }}
+                                    </p>
+                                    <div :hidden="!this.editCommentMode">
+                                        <textarea class="form-control" id="updateCommentArea" rows="4"
+                                            style="background: #fff;"
+                                            @input="updateOldCommentValue($event.target.value)">{{ comment.text }}</textarea>
+                                    
+                                        <div class="float-end mt-2 pt-1">
+                                            <button type="button" id="updateCommentButton" data-mdb-button-init data-mdb-ripple-init
+                                                class="btn btn-danger btn-sm me-1" @click="updateComment(comment._id)" :disabled="this.oldCommentIsTheSame">
+                                                <div v-if="isEditingLoading" class="d-flex justify-content-center align-items-center">
+                                                    <div class="spinner-border spinner-border-sm text-light" role="status">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </div>
+                                                </div>
+                                                <div v-else>
+                                                    Modifier le commentaire
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
 
@@ -158,7 +191,13 @@ export default {
             bookComments: [],
             futureComment: "",
             authors: [],
-            selectedAuthor: ""
+            selectedAuthor: "",
+            editCommentMode: false,
+            oldComment: "",
+            oldCommentIsTheSame: true,
+            commentToUpdate: "",
+            isEditing: {},
+            isEditingLoading: false
         };
     },
     mounted() {
@@ -292,9 +331,16 @@ export default {
         updateFutureCommentValue(value) {
             this.futureComment = value;
         },
+        updateOldCommentValue(value) {
+            if (this.commentToUpdate == value) {
+                this.oldCommentIsTheSame = true;
+            } else {
+                this.oldCommentIsTheSame = false;
+            }
+            this.oldComment = value;
+        },
         onselectionchange(event) {
             this.selectedAuthor = event.target.value;
-            console.log(this.selectedAuthor)
         },
         async postComment() {
             try {
@@ -318,6 +364,78 @@ export default {
         },
         eraseTextArea() {
             document.getElementById("commentArea").value = "";
+        },
+        async deleteComment(commentId) {
+            try {
+                const response = await fetch(`https://bookclub-api.vercel.app/api/comments?commentId=${commentId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                } else {
+                    this.getBookById();
+                }
+            } catch (error) {
+                console.error('Erreur lors de la suppression du commentaire:', error);
+            }
+        },
+        async editComment(commentId){
+            this.editCommentMode = !this.editCommentMode;
+            this.isEditing[commentId] = !this.isEditing[commentId];
+            const button = document.getElementById("editCommentButton");
+            button.classList.toggle("btn-danger");
+            button.classList.toggle("btn-info");
+
+            try {
+                const response = await fetch(`https://bookclub-api.vercel.app/api/comments/${commentId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                } else {
+                    const comment = await response.json();
+                    this.commentToUpdate = comment.comment.text;
+                }
+            } catch (error) {
+                console.error('Erreur lors de la récupération du commentaire à éditer:', error);
+            }
+        },
+        async updateComment(commentId){
+            this.isEditingLoading = true;
+            const button = document.getElementById("editCommentButton");
+            try {
+                const response = await fetch(`https://bookclub-api.vercel.app/api/comments`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ commentId: commentId, newText: this.oldComment })
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                } else {
+                    this.getBookById();
+                    setTimeout(async () => {
+                        this.editCommentMode = !this.editCommentMode;
+                        this.isEditing[commentId] = !this.isEditing[commentId];
+                        button.classList.toggle("btn-info");
+                        button.classList.toggle("btn-danger");
+                        this.oldCommentIsTheSame = true;
+                        const comment = await response.json();
+                        if(comment){
+                            this.isEditingLoading = false;
+                        }
+                    }, 3000);
+                }
+            } catch (error) {
+                console.error('Erreur lors de la mise à jour du commentaire:', error);
+            }
         }
     }
 }
