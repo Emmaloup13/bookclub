@@ -19,12 +19,6 @@
                                 <p class="mb-1 ms-1 text-bold">{{ book.author }}</p>
                                 <p class="ms-1 text-bold">{{ book.pages }} pages</p>
                             </div>
-                           <div class="row justify-center" v-if="book.status.title == 'Lu'">
-                                <div class="col-12 flex-column">
-                                    <button class="btn btn-primary me-20 ms-10">Ajouter une note</button>
-                                </div>
-                           </div>
-
                         </div>
                         <div class="col-12 col-md-6">
                             <h5 class="card-title text-center">Résumé du livre</h5>

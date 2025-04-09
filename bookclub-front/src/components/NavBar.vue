@@ -35,7 +35,7 @@
                             <div class="dropdown-menu">
                                 <router-link class="dropdown-item" to="/users" @click="closeNavbar">Gérer les
                                     lecteurs</router-link>
-                                <a class="dropdown-item" href="#">Ajouter un livre</a>
+                                    <router-link class="dropdown-item" to="/addBook" @click="closeNavbar">Ajouter un livre</router-link>
                                 <a class="dropdown-item" href="#">Ajouter un genre littéraire</a>
                             </div>
                         </transition>

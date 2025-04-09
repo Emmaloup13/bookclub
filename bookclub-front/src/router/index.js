@@ -5,6 +5,7 @@ import BooksToReadView from '@/views/BooksToReadView.vue'
 import BooksInReadingView from '@/views/BooksInReadingView.vue'
 import BooksReadView from '@/views/BooksReadView.vue'
 import BookDetails from '@/views/BookDetails.vue'
+import BookAdding from '@/views/BookAdding.vue'
 
 const routes = [
     {
@@ -37,6 +38,11 @@ const routes = [
         name: 'BookDetails',
         component: BookDetails,
         props: true
+    },
+    {
+        path: '/addBook',
+        name: 'BookAdding',
+        component: BookAdding
     }
 ]
 
